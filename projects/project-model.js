@@ -28,7 +28,7 @@ function getTasks() {
   // list of tasks should include project name and project description
   return db('task')
     .join('project', 'project.id', 'task.project_id')
-    .select('project.name', 'project.description', 'task.description', 'task.notes', 'task.completed')
+    .select('project.name', 'project.description', 'task.notes', 'task.completed')
 }
 async function addResource(resource) {
   const [id] = await db('resource').insert(resource)
