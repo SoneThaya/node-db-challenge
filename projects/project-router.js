@@ -4,6 +4,8 @@ const Projects = require('./project-model')
 
 const router = express.Router()
 
+const knex = require('../data/db-config')
+
 router.get('/projects', (req, res) => {
   Projects.getProjects()
     .then(projects => {
@@ -74,6 +76,86 @@ router.post('/tasks', (req, res) => {
         message: 'error adding task'
       })
     })
+})
+
+router.put('/tasks/:id', (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+
+  knex('task')
+    .where({ id })
+    .update(changes)
+    .then(count => {
+      if (count > 0) {
+        res.status(201).json({message: 'task updated'})
+      } else {
+        res.status(404).json({message: 'no task found'})
+      }
+    })
+    .catch(error => {
+      console.log("PUT / error", error)
+
+      res.status(500).json({message: error.message})
+  })
+})
+
+router.put('/projects/:id', (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+
+  knex('project')
+    .where({ id })
+    .update(changes)
+    .then(count => {
+      if (count > 0) {
+        res.status(201).json({message: 'project updated'})
+      } else {
+        res.status(404).json({message: 'no project found'})
+      }
+    })
+    .catch(error => {
+      console.log("PUT / error", error)
+
+      res.status(500).json({message: error.message})
+  })
+})
+
+router.delete('/tasks/:id', (req, res) => {
+  const { id } = req.params;
+
+  knex('task')
+    .where({ id })
+    .del()
+    .then(count => {
+      if (count > 0) {
+        res.status(200).json({message: 'task deleted'})
+      } else {
+        res.status(404).json({message: 'no task found'})
+      }
+    })
+    .catch(error => {
+      console.log("DELETE / error", error);
+      res.status(500).json({ message: error.message });
+    });
+})
+
+router.delete('/projects/:id', (req, res) => {
+  const { id } = req.params;
+
+  knex('project')
+    .where({ id })
+    .del()
+    .then(count => {
+      if (count > 0) {
+        res.status(200).json({message: 'project deleted'})
+      } else {
+        res.status(404).json({message: 'no project found'})
+      }
+    })
+    .catch(error => {
+      console.log("DELETE / error", error);
+      res.status(500).json({ message: error.message });
+    });
 })
 
 module.exports = router;
