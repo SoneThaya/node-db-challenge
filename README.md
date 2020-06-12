@@ -40,11 +40,22 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 - [ ] Explain the difference between `Relational Databases` and `SQL`.
 
+In relational databases, the data is stored in tabular format grouped into rows and columns (similar to spreadsheets). A collection of rows is called a table. Each row represents a single record in the table and is made up of one or more columns.
+
+Structured Query Language is the standard language used to manage databases and the data within them. It is the de facto way to interact with a database.
+
+
 - [ ] Why do tables need a `primary key`?
+
+A primary key is a field in a table which uniquely identifies each row/record in a database table. Primary keys must contain unique values.
 
 - [ ] What is the name given to a table column that references the primary key on another table.
 
+A foreign key is used to connect two tables referencing the primary key.
+
 - [ ] What do we need in order to have a _many to many_ relationship between two tables.
+
+Need to create a join table to connect the two tables. The primary key of the join table is the combination of the primary keys of the tables we need to join.
 
 ## Minimum Viable Product
 
